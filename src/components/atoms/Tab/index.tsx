@@ -1,34 +1,33 @@
 import React from 'react';
 import styled from "@emotion/styled";
-import {Theme} from "@emotion/react";
 
-interface TabProps extends StyledTabProps{
-    activeKey: string;
-    tabName: string
+interface TabProps extends StyledTabProps, React.ComponentProps<'div'> {
+    activeKey?: string;
+    tabName: string;
 };
 
 interface StyledTabProps {
-    isActive: boolean;
-    theme: Theme
+    isActive?: boolean;
 };
 
 const Tab = ({ isActive, activeKey, tabName, ...props}: TabProps) => {
     return (
-        <StyledTab isActive={activeKey ? true : false} {...props}>
+        <StyledTab isActive={isActive} {...props}>
             {tabName}
         </StyledTab>
     );
 };
 
-const tabColor = ({ isActive, theme }: StyledTabProps) => isActive ? theme.fg.black : theme.fg.gray;
 
-const StyledTab = styled.div`
+const StyledTab = styled.div<StyledTabProps>`
   position: relative;
   text-align: center;
   //3px = activeBar height
   padding-bottom: calc(20px - 3px);
   background-color: transparent;
-  color: ${tabColor};
+  color: ${
+    ({ isActive, theme }) => isActive ? theme.fg.black : theme.fg.gray
+  };
   transition: color 250ms ease-out;
 
   font-weight: 500;

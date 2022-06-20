@@ -15,6 +15,6 @@ root.render(
         <GlobalStyles/>
         <BrowserRouter>
             <App/>
-        </BrowserRouter>,
+        </BrowserRouter>
     </ThemeProvider>
 );
